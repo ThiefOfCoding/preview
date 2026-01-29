@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>zay</title>
+  <link rel="stylesheet" href="styles.css" />
+
+  <!-- Advanced fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700;800&family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+  <!-- Ember + flame sparkles -->
+  <canvas id="flameCanvas" aria-hidden="true"></canvas>
+
+  <!-- Background layers -->
+  <div class="bg" aria-hidden="true">
+    <div class="bg__void"></div>
+    <div class="bg__rings"></div>
+    <div class="bg__noise"></div>
+    <div class="bg__scan"></div>
+  </div>
+
+  <!-- Gate -->
+  <div id="gate" class="gate" role="dialog" aria-modal="true" aria-label="Enter">
+    <div class="gate__core">
+      <div class="gate__aura"></div>
+      <div class="gate__spark"></div>
+
+      <h1 class="gate__title" data-text="zay">zay</h1>
+      <div class="gate__meta">
+        <span class="tag">OBSIDIAN</span>
+        <span class="sep"></span>
+        <span class="tag">BURN//NEON</span>
+        <span class="sep"></span>
+        <span class="tag">VAULT</span>
+      </div>
+
+      <button id="enterBtn" class="enter" type="button">
+        <span class="enter__bg"></span>
+        <span class="enter__txt">click</span>
+        <span class="enter__glyph">✶</span>
+      </button>
+
+      <div class="gate__hint">Open the profile.</div>
+    </div>
+  </div>
+
+  <!-- App -->
+  <main id="app" class="app" aria-hidden="true">
+    <section class="shell">
+      <header class="hero">
+        <div class="hero__left">
+          <div class="pfpWrap">
+            <img class="pfp" src="https://xatimg.com/image/SydxCIOrK47N.jpg" alt="Profile picture" />
+            <span class="pfpGlow" aria-hidden="true"></span>
+            <span class="pfpEdge" aria-hidden="true"></span>
+          </div>
+
+          <div class="id">
+            <div class="id__top">
+              <h2 class="name">zay</h2>
+              <span class="status">ONLINE</span>
+            </div>
+            <p class="tagline">A profile that feels like a cinematic artifact.</p>
+
+            <!-- Redirect links (requested) -->
+            <nav class="quickLinks" aria-label="Main links">
+              <a class="q" href="http://xat.com/saoko" target="_blank" rel="noopener">portal</a>
+              <a class="q" href="http://xat.com/trade" target="_blank" rel="noopener">signal</a>
+              <a class="q" href="https://xat.me/zaay" target="_blank" rel="noopener">archive</a>
+            </nav>
+          </div>
+        </div>
+
+        <div class="hero__right">
+          <div class="meter">
+            <div class="meter__label">ENERGY</div>
+            <div class="meter__bar"><span style="--w: 88%"></span></div>
+          </div>
+          <div class="meter">
+            <div class="meter__label">AURA</div>
+            <div class="meter__bar"><span style="--w: 94%"></span></div>
+          </div>
+          <div class="meter">
+            <div class="meter__label">HEAT</div>
+            <div class="meter__bar"><span style="--w: 79%"></span></div>
+          </div>
+        </div>
+      </header>
+
+      <section class="panel">
+        <div class="panel__top">
+          <div>
+            <h3 class="panel__title">Modules</h3>
+            <div class="panel__sub">Gallery • Friends • Links</div>
+          </div>
+
+          <div class="panel__actions">
+            <button id="galleryBtn" class="btn" type="button">gallery</button>
+            <button id="friendsBtn" class="btn" type="button">friends</button>
+            <button id="linksBtn" class="btn btn--ghost" type="button">links</button>
+          </div>
+        </div>
+
+        <div class="panel__body">
+          <div class="cards">
+            <article class="card">
+              <h4>Bio</h4>
+              <p>Drop your text here. This layout is built to expand (galleries, friends, embeds, links).</p>
+            </article>
+            <article class="card">
+              <h4>Notes</h4>
+              <p>Everything is modular. You can add sections, stats, custom pages, or even video backgrounds.</p>
+            </article>
+            <article class="card">
+              <h4>Status</h4>
+              <p>Flame sparkles are rendered on canvas with bloom + trail for a cinematic “embers” look.</p>
+            </article>
+          </div>
+        </div>
+
+        <footer class="panel__footer">
+          <div class="clock">
+            <div class="clock__label">LOCAL TIME</div>
+            <div class="clock__time" id="clockTime">--:--:--</div>
+            <div class="clock__zone" id="clockZone">---</div>
+          </div>
+          <div class="sig">OBSIDIAN//VAULT</div>
+        </footer>
+      </section>
+    </section>
+
+    <!-- Modal: Gallery grid -->
+    <div id="galleryModal" class="modal" aria-hidden="true" role="dialog" aria-label="Gallery">
+      <div class="modal__backdrop" data-close="gallery"></div>
+      <div class="modal__panel">
+        <div class="modal__top">
+          <h3 class="modal__title">Gallery</h3>
+          <button class="x" type="button" data-close="gallery" aria-label="Close">✕</button>
+        </div>
+
+        <div class="galleryGrid" id="galleryGrid">
+          <!-- 4 images -->
+          <button class="shot" data-full="https://xatimg.com/image/SydxCIOrK47N.jpg" type="button">
+            <img src="https://xatimg.com/image/SydxCIOrK47N.jpg" alt="Gallery 1">
+          </button>
+          <button class="shot" data-full="https://xatimg.com/image/SydxCIOrK47N.jpg" type="button">
+            <img src="https://xatimg.com/image/SydxCIOrK47N.jpg" alt="Gallery 2">
+          </button>
+          <button class="shot" data-full="https://xatimg.com/image/SydxCIOrK47N.jpg" type="button">
+            <img src="httpsatimg.com/image/SydxCIOrK47N.jpg" alt="Gallery 3" onerror="this.src='https://xatimg.com/image/SydxCIOrK47N.jpg'">
+          </button>
+          <button class="shot" data-full="https://xatimg.com/image/SydxCIOrK47N.jpg" type="button">
+            <img src="https://xatimg.com/image/SydxCIOrK47N.jpg" alt="Gallery 4">
+          </button>
+        </div>
+
+        <div class="modal__bottom">
+          <button class="btn btn--wide" type="button" data-close="gallery">return</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Fullscreen cinematic viewer -->
+    <div id="viewer" class="viewer" aria-hidden="true" role="dialog" aria-label="Viewer">
+      <div class="viewer__backdrop" data-close="viewer"></div>
+      <div class="viewer__frame" id="viewerFrame">
+        <div class="grain" aria-hidden="true"></div>
+        <img id="viewerImg" alt="Fullscreen image" />
+        <button class="viewer__x" type="button" data-close="viewer" aria-label="Close fullscreen">✕</button>
+        <div class="viewer__hint">move your mouse</div>
+      </div>
+    </div>
+
+    <!-- Modal: Friends -->
+    <div id="friendsModal" class="modal" aria-hidden="true" role="dialog" aria-label="Friends">
+      <div class="modal__backdrop" data-close="friends"></div>
+      <div class="modal__panel">
+        <div class="modal__top">
+          <h3 class="modal__title">Friends</h3>
+          <button class="x" type="button" data-close="friends" aria-label="Close">✕</button>
+        </div>
+
+        <ul class="friendsList" id="friendsList"></ul>
+
+        <div class="modal__bottom">
+          <button class="btn btn--wide" type="button" data-close="friends">return</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Friend mini-profile -->
+    <div id="friendCard" class="fcard" aria-hidden="true" role="dialog" aria-label="Friend profile">
+      <div class="fcard__backdrop" data-close="fcard"></div>
+      <div class="fcard__panel">
+        <div class="fcard__top">
+          <div class="fcard__who">
+            <img id="fcardImg" class="fcard__img" alt="Friend avatar" />
+            <div>
+              <div id="fcardName" class="fcard__name">---</div>
+              <div id="fcardMeta" class="fcard__meta">---</div>
+            </div>
+          </div>
+          <button class="x" type="button" data-close="fcard" aria-label="Close">✕</button>
+        </div>
+
+        <div class="fcard__body">
+          <div class="pulseRow">
+            <button id="pulseBtn" class="btn btn--wide" type="button">send pulse</button>
+            <div id="pulseMsg" class="pulseMsg" aria-live="polite"></div>
+          </div>
+          <div class="miniStats">
+            <div class="miniStat"><span>sync</span><b id="statSync">--%</b></div>
+            <div class="miniStat"><span>signal</span><b id="statSignal">--%</b></div>
+            <div class="miniStat"><span>heat</span><b id="statHeat">--%</b></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal: Links (requested changes) -->
+    <div id="linksModal" class="modal" aria-hidden="true" role="dialog" aria-label="Links">
+      <div class="modal__backdrop" data-close="links"></div>
+      <div class="modal__panel">
+        <div class="modal__top">
+          <h3 class="modal__title">Links</h3>
+          <button class="x" type="button" data-close="links" aria-label="Close">✕</button>
+        </div>
+
+        <div class="linksOnly">
+          <a class="pill" href="https://xat.com/saoko" target="_blank" rel="noopener">Saoko</a>
+        </div>
+
+        <div class="modal__bottom">
+          <button class="btn btn--wide" type="button" data-close="links">return</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Custom Player (YouTube IFrame API) -->
+    <aside class="player" id="player">
+      <div class="player__head">
+        <div class="player__title">sound</div>
+        <button id="playerMin" class="player__min" type="button" aria-label="Minimize">—</button>
+      </div>
+
+      <div class="player__body" id="playerBody">
+        <div class="ytWrap">
+          <div id="ytPlayer"></div>
+        </div>
+
+        <div class="controls">
+          <button id="btnPlay" class="ctl" type="button">play</button>
+          <button id="btnMute" class="ctl ctl--ghost" type="button">mute</button>
+
+          <div class="time">
+            <span id="tCur">0:00</span>
+            <span class="sep">/</span>
+            <span id="tDur">0:00</span>
+          </div>
+
+          <input id="seek" class="slider" type="range" min="0" max="1000" value="0" />
+          <div class="volRow">
+            <span class="volTag">vol</span>
+            <input id="vol" class="slider" type="range" min="0" max="100" value="70" />
+          </div>
+        </div>
+
+        <div class="player__note">If autoplay is blocked, hit <b>play</b>.</div>
+      </div>
+    </aside>
+
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
